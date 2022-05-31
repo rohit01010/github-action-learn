@@ -1,0 +1,20 @@
+name: test
+on:[push, pull_request]
+
+jobs:
+  tests:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install yq - yaml parser
+        run: pip3 install yq
+
+      - name: read
+        id: read
+        run: yq '.upgrade-version[0]' ${{ github.workspace }}/.github/upgrade-test-configuration.yml
+        
+      - name: final
+        id: final 
+        run: echo "done"
