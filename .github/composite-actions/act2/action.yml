@@ -12,5 +12,6 @@ runs:
       uses: ./.github/composite-actions/act1
   
     - name: check
+      shell: bash
       if: always() && steps.test-ot.outcome == 'success'
       run: echo "Checked"
