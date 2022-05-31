@@ -15,6 +15,10 @@ jobs:
         id: read
         run: yq -r '."13.4".engine_branch' .github/version-branch-template.yml
         
+      - name: act test
+        id: act-test
+        uses: ./.github/composite-actions/act2
+        
       - name: final
         id: final 
         run: echo "done"
