@@ -8,5 +8,9 @@ runs:
       shell: bash
       
     - name: Act1 test
-      if: always() && steps.Tesit.outcome == 'success'
+      id: test-ot
       uses: ./.github/composite-actions/act1
+  
+    - name: check
+      if: always() && steps.test-ot.outcome == 'success'
+      run: echo "Checked"
