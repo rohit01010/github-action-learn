@@ -1,8 +1,16 @@
 name: 'Act1'
-
+inputs:
+  username:
+    description: "is false"
+    required: true
 runs:
   using: "composite"
   steps:
     - name: Test
       run: echo "Hello From act 1"
+      shell: bash
+      
+    - name:  Test if true
+      if: always() && inputs.username
+      run: echo "It is True"
       shell: bash
