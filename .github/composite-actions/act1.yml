@@ -1,1 +1,8 @@
+name: 'Act1'
 
+runs:
+  using: "composite"
+  steps:
+    - name: Test
+      run: echo "Hello From act 1"
+      shell: bash
