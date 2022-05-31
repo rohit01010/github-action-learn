@@ -13,7 +13,7 @@ jobs:
 
       - name: read
         id: read
-        run: yq '.upgrade-version[0]' ${{ github.workspace }}/.github/upgrade-test-configuration.yml
+        run: yq '."upgrade-version"[0]' ${{ github.workspace }}/.github/upgrade-test-configuration.yml
         
       - name: final
         id: final 
