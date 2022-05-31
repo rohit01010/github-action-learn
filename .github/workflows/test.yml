@@ -13,7 +13,7 @@ jobs:
 
       - name: read
         id: read
-        run: yq '."13.4".engine_branch' .github/version-branch-template.yml
+        run: yq -r '."13.4".engine_branch' .github/version-branch-template.yml
         
       - name: final
         id: final 
