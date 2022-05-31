@@ -10,7 +10,9 @@ runs:
     - name: Act1 test
       id: test-ot
       uses: ./.github/composite-actions/act1
-  
+      with:
+        username: true
+      
     - name: check
       shell: bash
       if: always() && steps.test-ot.outcome == 'success'
