@@ -1,0 +1,12 @@
+name: 'Act 2'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Tesit
+      run: echo "Hi from Act 2"
+      shell: bash
+      
+    - name: Act1 test
+      if: always() && steps.Tesit.outcome == 'success'
+      uses: ./.github/composite-actions/act1
