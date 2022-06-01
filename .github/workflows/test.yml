@@ -12,8 +12,27 @@ jobs:
         run: pip3 install yq
       
       - name: read length
-        run: yq -r '."upgrade-version" | length' .github/upgrade-test-configuration.yml
-
+        id: read-len
+        run: >
+          echo "::set-output name=lenth::$(
+            yq -r '."upgrade-version" | length' .github/upgrade-test-configuration.yml
+          )"
+        
+      - name: add hellos
+        run: |
+          for n in {1..${{ steps.read-len.outputs.lenth }}}; 
+          do
+            sudo sed -i 's/# Test to print Act 1/# Test to print Act 1
+                                                  - name: Test${{ steps.read-len.outputs.lenth }}
+                                                    id: test${{ steps.read-len.outputs.lenth }}
+                                                    run: echo "Hello there act 1"
+                                                    shell: bash/g' .github/composite-actions/act1/action.yml
+          done
+          
+      - name: print changes
+        run: | 
+          cat .github/composite-actions/act1/action.yml
+        
       - name: read
         id: read
         run: yq -r '."13.4".engine_branch' .github/version-branch-template.yml
