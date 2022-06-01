@@ -7,7 +7,7 @@ runs:
   using: "composite"
   steps:
     - name: Test
-      run: echo "Hello From act 1"
+      run: echo "Hello there act 1"
       shell: bash
       
     - name:  Test if true
