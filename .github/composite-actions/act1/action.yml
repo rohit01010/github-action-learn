@@ -6,9 +6,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Test
-      run: echo "Hello there act 1"
-      shell: bash
+    # Test to print Act 1
       
     - name:  Test if true
       if: always() && inputs.username
