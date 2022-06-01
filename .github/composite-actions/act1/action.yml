@@ -7,7 +7,6 @@ runs:
   using: "composite"
   steps:
     # Test to print Act 1
-      
     - name:  Test if true
       if: always() && inputs.username
       run: echo "It is True"
