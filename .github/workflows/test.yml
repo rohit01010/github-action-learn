@@ -10,6 +10,9 @@ jobs:
       
       - name: Install yq - yaml parser
         run: pip3 install yq
+      
+      - name: read length
+        run: yq -r '."upgrade-version" | length' .github/upgrade-test-configuration.yml
 
       - name: read
         id: read
