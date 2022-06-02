@@ -26,7 +26,7 @@ jobs:
         run: |
           for n in ${{ steps.read-len.outputs.items }}; 
           do
-            sudo sed -i "s/# Test to print Act 1/# Test to print Act 1 \n    - name: Test $n \n      id: test-$n \n      run: echo 'Hello there act 1' \n      shell: bash \n /g" .github/composite-actions/act1/action.yml
+            sudo sed -i "s/# Test to print Act 1/# Test to print Act 1 \n\t- name: Test $n \n\t  id: test-$n \n\t  run: echo 'Hello there act 1' \n\t  shell: bash \n /g" .github/composite-actions/act1/action.yml
           done
           
       - name: print changes
