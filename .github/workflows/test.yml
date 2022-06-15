@@ -32,8 +32,7 @@ jobs:
       - name: print changes
         run: | 
           cat .github/composite-actions/act1/action.yml
-          echo ${{ !!int "13.4" }}
-        
+          
       - name: read
         id: read
         run: yq '."13.4".engine_branch' .github/version-branch-template.yml
