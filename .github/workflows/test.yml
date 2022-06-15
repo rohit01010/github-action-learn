@@ -9,17 +9,17 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install yq - yaml parser
-        run: pip3 install yq
+        run: snap install yq
       
       - name: read temp length
         id: read-temp-len
-        run: yq -r '."upgrade-version"' .github/upgrade-test-configuration.yml
+        run: yq '."upgrade-version"' .github/upgrade-test-configuration.yml
       
       - name: read length
         id: read-len
         run: >
             echo "::set-output name=items::$(
-              yq -r '."upgrade-version"' .github/upgrade-test-configuration.yml
+              yq '."upgrade-version"' .github/upgrade-test-configuration.yml
             )"
 
       - name: add hellos
@@ -36,7 +36,7 @@ jobs:
         
       - name: read
         id: read
-        run: yq -r '."13.4".engine_branch' .github/version-branch-template.yml
+        run: yq '."13.4".engine_branch' .github/version-branch-template.yml
         
       - name: act test
         id: act-test
