@@ -4,6 +4,9 @@ on: [push, pull_request]
 jobs:
   tests:
     name: test
+    strategy:
+      matrix:
+        version: [10, 12, 14]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,17 +24,11 @@ jobs:
             echo "::set-output name=items::$(
               yq '."upgrade-version"' .github/upgrade-test-configuration.yml
             )"
-
-      - name: add hellos
-        run: |
-          for n in ${{ steps.read-len.outputs.items }}; 
-          do
-            sudo sed -i "s/# Test to print Act 1/# Test to print Act 1 \n\t- name: Test $n \n\t  id: test-$n \n\t  run: echo 'Hello there act 1' \n\t  shell: bash \n /g" .github/composite-actions/act1/action.yml
-          done
           
       - name: print changes
         run: | 
           cat .github/composite-actions/act1/action.yml
+          echo ${{ matrix.version }}
           
       - name: read
         id: read
