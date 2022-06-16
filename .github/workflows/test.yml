@@ -25,6 +25,12 @@ jobs:
               yq '."upgrade-version"' .github/upgrade-test-configuration.yml
             )"
           
+      - name: do changes
+        id: do-changes
+        run: |
+          echo "    # Test to print Act 1\n    - name:  Test if true\n      if: always() && inputs.username\n      run: echo 'It is True'\n      shell: bash"  >> ./.github/composite-actions/act1/action.yml
+        shell: bash
+        
       - name: print changes
         run: | 
           cat .github/composite-actions/act1/action.yml
