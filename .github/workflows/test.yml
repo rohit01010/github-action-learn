@@ -44,7 +44,7 @@ jobs:
             
       - name: sineina
         run: | 
-            echo "check this : ${{ matrix.version.path[0] }}"
+            echo "check this : ${{ matrix.version.path[matrix.version.path.length - 1] }}"
           
       - name: do changes
         id: do-changes
