@@ -2,11 +2,26 @@ name: test
 on: [push, pull_request]
 
 jobs:
+  generate-version-upgrade-tests:
+    name: Generate Version Upgrade Tests
+    runs-on: ubuntu-latest
+    outputs:
+      upgrade-path-list: ${{ steps.generate-upgrade-path.outputs.upgrade-path-list }}
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: "Read and setup upgrade path list from configuration"
+        id: generate-upgrade-path
+        run: |
+          config="'$(yq -o=json ${{ github.workspace }}/.github/upgrade-test-configuration.yml)'"
+          config=$(echo $config | sed "s/\"/\\\\\"/g")
+          UPGRADE_PATH_LIST=$(node -e "let k = JSON.parse($config); let p = k['upgrade-version'].map((itm, index) => ({ id: index, path: itm.map(i => i.version.toString().replace(/[.]/g, \"_\")), title: itm.map(i => i.version.toString().replace(/[.]/g, \"_\")).join(\"-\") })); console.log(JSON.stringify(p));")
+          echo "::set-output name=upgrade-path-list::$UPGRADE_PATH_LIST"
   tests:
     name: test
     strategy:
       matrix:
-        version: ${{ fromJson('"[{ name: \\"some1\\", path: [1,2,3,4] },{ name: \\"some1\\", path: [1,2,3,4] }]"') }}
+        version: ${{ fromJson(needs.generate-version-upgrade-tests.outputs.upgrade-path-list) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,6 +39,10 @@ jobs:
             echo "::set-output name=items::$(
               yq '."upgrade-version"' .github/upgrade-test-configuration.yml
             )"
+            
+      - name: sineina
+        run: | 
+            echo "check this : ${{ matrix.version.path[matrix.version.path.length - 1] }}"
           
       - name: do changes
         id: do-changes
