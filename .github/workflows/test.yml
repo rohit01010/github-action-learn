@@ -20,6 +20,7 @@ jobs:
           echo "::set-output name=upgrade-path-list::$UPGRADE_PATH_LIST"
   tests:
     name: test
+    needs: generate-version-upgrade-tests
     strategy:
       matrix:
         version: ${{ fromJson(needs.generate-version-upgrade-tests.outputs.upgrade-path-list) }}
