@@ -1,9 +1,12 @@
-name: Version Upgrade Test Framework
+name: test-job
 on: [push, pull_request]
 
 jobs:
   job-name:
     name: Print the GitHub context
-    env:
-      GITHUB_CONTEXT: ${{ toJson(github) }}
-    run: echo "$GITHUB_CONTEXT"
+    runs-on: ubuntu-latest
+    steps:
+      - name: someh
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
