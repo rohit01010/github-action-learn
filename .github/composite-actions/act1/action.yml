@@ -12,5 +12,5 @@ runs:
       if: always() && inputs.username
       run: echo "It is True $HEAD_OWNER"
       env:
-        HEAD_OWNER: ${{ github.event }}
+        HEAD_OWNER: ${{ github.event_name }}
       shell: bash
