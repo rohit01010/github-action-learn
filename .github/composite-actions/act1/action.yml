@@ -3,11 +3,14 @@ inputs:
   username:
     description: "is false"
     required: true
+env:
+  HEAD_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
+
 runs:
   using: "composite"
   steps:
     # Test to print Act 1
     - name:  Test if true
       if: always() && inputs.username
-      run: echo "It is True"
+      run: echo "It is True $HEAD_OWNER"
       shell: bash
