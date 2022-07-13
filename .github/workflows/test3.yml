@@ -1,0 +1,27 @@
+name: test
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install yq - yaml parser
+        run: pip3 install yq
+      
+      - name: read length
+        run: yq -r '."upgrade-version" | length' .github/upgrade-test-configuration.yml
+
+      - name: read
+        id: read
+        run: yq -r '."13.4".engine_branch' .github/version-branch-template.yml
+        
+      - name: act test
+        id: act-test
+        uses: ./.github/composite-actions/act2
+        
+      - name: final
+        id: final 
+        run: echo "done"
