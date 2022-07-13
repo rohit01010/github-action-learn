@@ -3,8 +3,6 @@ inputs:
   username:
     description: "is false"
     required: true
-env:
-  HEAD_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
 
 runs:
   using: "composite"
@@ -13,4 +11,6 @@ runs:
     - name:  Test if true
       if: always() && inputs.username
       run: echo "It is True $HEAD_OWNER"
+      env:
+        HEAD_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
       shell: bash
