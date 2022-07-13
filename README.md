@@ -1,1 +1,1 @@
-# github-action-learn
+# Repository to learn Github Actions
