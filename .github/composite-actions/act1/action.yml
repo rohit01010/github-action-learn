@@ -10,7 +10,7 @@ runs:
     # Test to print Act 1
     - name:  Test if true
       if: always() && inputs.username
-      run: echo "It is True "$HEAD_OWNER
+      run: echo "It is True $HEAD_OWNER"
       env:
-        HEAD_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
+        HEAD_OWNER: ${{ github.event }}
       shell: bash
